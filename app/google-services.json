@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "648184364702",
+    "firebase_url": "https://sweetcartapp.firebaseio.com",
+    "project_id": "sweetcartapp",
+    "storage_bucket": "sweetcartapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648184364702:android:964031433ba3d9fe15c58f",
+        "android_client_info": {
+          "package_name": "com.example.sweetcartapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648184364702-6n9o6cfc9cedllpq6eko14mlavn90ofu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sweetcartapp",
+            "certificate_hash": "4e0388a80c79e648fd41b992a79d8181eb352054"
+          }
+        },
+        {
+          "client_id": "648184364702-1t3u4ivnmvuklt0trr3mcb99ooec86q6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClAkWXFsxwnwr96eNRg3rImfHS_6cf_x8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648184364702-1t3u4ivnmvuklt0trr3mcb99ooec86q6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
