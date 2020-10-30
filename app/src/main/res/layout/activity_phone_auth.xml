@@ -27,7 +27,8 @@
     >
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="300dp"
-
+        android:padding="5dp"
+        android:backgroundTint="@color/design_default_color_primary_dark"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/contactno"
@@ -35,15 +36,39 @@
             android:layout_height="wrap_content"
             android:hint="Mobile no." />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.button.MaterialButton
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="300dp"
+            android:padding="5dp"
+            android:backgroundTint="@color/design_default_color_primary_dark"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/otpnum"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="OTP" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
         android:id="@+id/verifybutton"
+        android:backgroundTint="@color/design_default_color_primary_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Verify"
+        android:text="Send OTP"
         android:onClick="verifyUsingButton"
 
         />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/checkOtp"
+            android:backgroundTint="@color/design_default_color_primary_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Validate OTP"
+            android:onClick="authenticateOTP"
+
+            />
 </LinearLayout>
 
 </RelativeLayout>

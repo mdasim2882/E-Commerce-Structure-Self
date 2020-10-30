@@ -1,8 +1,10 @@
 package com.example.sweetcartapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -36,13 +38,18 @@ public class PhoneAuthActivity extends AppCompatActivity {
     private boolean vfOnPressed;
     private String inputOTP;
     EditText mobileno;
+    EditText otpno;
+
+    Button btnsend,btnvalidate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_auth);
         mobileno = findViewById(R.id.contactno);
-
+        otpno = findViewById(R.id.otpnum);
+        btnsend=findViewById(R.id.verifybutton);
+        btnvalidate=findViewById(R.id.verifybutton);
 
     }
 
@@ -131,6 +138,9 @@ public class PhoneAuthActivity extends AppCompatActivity {
                             autoverifiedStatus = true;
                             if (autoverifiedStatus) {
                                 //Start the Welcome Fragments to the user
+                                startWelcomePages();
+
+
                             }
 
                             Log.d(TAG, "onComplete: DONE WITH OTP VERIFICATION ");
@@ -151,5 +161,15 @@ public class PhoneAuthActivity extends AppCompatActivity {
                 });
     }
 
+    private void startWelcomePages() {
+        Intent i=new Intent(this,WelcomePagesActivity.class);
+        startActivity(i);
+        finish();
+    }
 
+
+    public void authenticateOTP(View view) {
+        String input = otpno.getText().toString();
+        verifyCode(input);
+    }
 }

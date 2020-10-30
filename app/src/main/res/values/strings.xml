@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SweetCartApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Welcome to Sweet Cart</string>
+    <string name="fast_blank_fragment">Fast delivery at your doorsteps</string>
+    <string name="YourChoice_blank_fragment">Book your order within seconds</string>
 </resources>
