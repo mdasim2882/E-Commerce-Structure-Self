@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,24 +41,36 @@ public class PhoneAuthActivity extends AppCompatActivity {
     private String inputOTP;
     EditText mobileno;
     EditText otpno;
-
+    TextInputLayout layoutmob, layoutOTP;
     Button btnsend,btnvalidate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_auth);
+        initializeLayoutElements();
+    }
+
+    private void initializeLayoutElements() {
         mobileno = findViewById(R.id.contactno);
         otpno = findViewById(R.id.otpnum);
         btnsend=findViewById(R.id.verifybutton);
         btnvalidate=findViewById(R.id.verifybutton);
 
+
+        layoutmob =  findViewById(R.id.ll_mobno);
+        layoutOTP = findViewById(R.id.ll_otpno);
     }
 
     public void verifyUsingButton(View view) {
         String input = mobileno.getText().toString();
-
-        sendVerificationCodeToUser(input);
+        if(checkMobnoValidityInputs())
+            sendVerificationCodeToUser(input);
+    }
+    public void authenticateOTP(View view) {
+        String input = otpno.getText().toString();
+        if(checkOTPnoValidityInputs())
+        verifyCode(input);
     }
 
 /*--------------------------------Phone Authentication Methods-----------------------------------*/
@@ -170,32 +183,41 @@ public class PhoneAuthActivity extends AppCompatActivity {
     }
 
 
-    public void authenticateOTP(View view) {
-        String input = otpno.getText().toString();
-        verifyCode(input);
+    public boolean checkOTPnoValidityInputs() {
+        boolean otpStatus;
+        if (TextUtils.isEmpty(otpno.getText().toString())) {
+            layoutOTP.setErrorEnabled(true);
+            layoutOTP.setError("Invalid OTP");
+            otpStatus = false;
+        } else {
+            layoutOTP.setErrorEnabled(false);
+            layoutOTP.setError(null);
+            otpStatus = true;
+        }
+         if( otpStatus==true)
+             return true;
+         return false;
     }
+    public boolean checkMobnoValidityInputs() {
 
-
-
-/*
-    public boolean checkValidityInputs() {
-
+    boolean contactStatus;
 
         if (TextUtils.isEmpty(mobileno.getText().toString())) {
-            tilUser.setErrorEnabled(true);
-            tilUser.setError("Username can't be empty");
-            unStatus = false;
-            // titleDetails.setVisibility(View.GONE);
-
+            layoutmob.setErrorEnabled(true);
+            layoutmob.setError("Invalid no.");
+        contactStatus=false;
         } else {
-            unStatus = true;
-            tilUser.setErrorEnabled(false);
-            tilUser.setError(null);
-            // titleDetails.setVisibility(View.VISIBLE);
-
+            layoutmob.setErrorEnabled(false);
+            layoutmob.setError(null);
+            contactStatus=true;
         }
+
+        if(contactStatus==true)
+            return true;
+        return false;
+
+
     }
-*/
 
 
 
