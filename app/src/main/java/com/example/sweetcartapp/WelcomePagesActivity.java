@@ -1,10 +1,13 @@
 package com.example.sweetcartapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.sweetcartapp.ShoppersRoom.ShoppersStop;
 import com.example.sweetcartapp.ViewPagerAdapter.ZoomOutPageTransformer;
 import com.example.sweetcartapp.ViewPagerAdapter.mViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -52,5 +55,6 @@ public class WelcomePagesActivity extends AppCompatActivity {
     public void setCurrentItem(int item, boolean smoothscroller) {
         viewPager.setCurrentItem(item, smoothscroller);
     }
+
 
 }

@@ -39,11 +39,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="300dp"
             android:padding="5dp"
+            app:errorEnabled="true"
             android:backgroundTint="@color/design_default_color_primary_dark"
             android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/otpnum"
                 android:layout_width="300dp"
+                android:inputType="numberPassword"
                 android:layout_height="wrap_content"
                 android:hint="OTP" />
         </com.google.android.material.textfield.TextInputLayout>

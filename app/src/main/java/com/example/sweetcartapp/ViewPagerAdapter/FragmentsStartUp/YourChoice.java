@@ -68,16 +68,20 @@ public class YourChoice extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_your_choice, container, false);
         letsGoButton=view.findViewById(R.id.letsGo);
-
+        letsGoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goinside();
+            }
+        });
         return view;
     }
 
 
 
-    public void goinside(View view) {
+    public void goinside() {
         Intent i=new Intent(getActivity(), ShoppersStop.class);
         startActivity(i);
         getActivity().finish();
-
     }
 }
