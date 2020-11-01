@@ -25,12 +25,15 @@ import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductGridItemDe
 public class ShoppersStop extends AppCompatActivity {
 
     Integer[] imageId = {
-            R.drawable.locationshop,
-            R.drawable.loginpreview,
-            R.drawable.orderspic,
-            R.drawable.loginpreview,
-            R.drawable.locationshop
+            R.drawable.rasgulla,
+            R.drawable.gulabjamun,
+            R.drawable.barfi,
+            R.drawable.jalebi,
+            R.drawable.samosa,
+            R.drawable.lassi
     };
+    String titleID[]={"Rasgulla","Gulab Jamun","Barfi","Jalebi","Samosa","Lassi"};
+    String priceID[]={"Rs 21","Rs 34","Rs 16","Rs 24","Rs 7","Rs 14"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class ShoppersStop extends AppCompatActivity {
         * ImageView productImage
         * TextView productName, productCost;
         * */
-        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(this,imageId);
+        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(this,imageId,titleID,priceID);
         recyclerView.setAdapter(adapter);
         int largePadding = getResources().getDimensionPixelSize(R.dimen.updown_product_grid_spacing);
         int smallPadding = getResources().getDimensionPixelSize(R.dimen.side_product_grid_spacing_small);
