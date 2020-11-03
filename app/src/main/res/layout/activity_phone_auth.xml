@@ -27,29 +27,43 @@
     >
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ll_mobno"
+        style="@style/Widget.SweetCart.TextInputLayout."
         android:layout_width="300dp"
-        android:padding="5dp"
-        android:backgroundTint="@color/design_default_color_primary_dark"
-        android:layout_height="wrap_content">
+        app:hintAnimationEnabled="true"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/purple_200">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/contactno"
-            android:layout_width="300dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:hint="Mobile no." />
+            android:hint="Mobile no."
+            android:fontFamily="@font/montserrat_alternates"
+            android:textColor="@color/purple_700"
+            android:textColorHint="@color/purple_200" />
     </com.google.android.material.textfield.TextInputLayout>
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ll_otpno"
+            style="@style/Widget.SweetCart.TextInputLayout."
             android:layout_width="300dp"
-            android:padding="5dp"
-            app:errorEnabled="true"
-            android:backgroundTint="@color/design_default_color_primary_dark"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/purple_200"
+            app:hintAnimationEnabled="true">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/otpnum"
-                android:layout_width="300dp"
-                android:inputType="numberPassword"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:hint="OTP" />
+                android:fontFamily="@font/montserrat_alternates"
+                android:hint="OTP"
+                android:inputType="numberPassword"
+                android:textColor="@color/purple_700"
+                android:textColorHint="@color/purple_200" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
