@@ -16,8 +16,8 @@
             style="@style/Widget.MaterialComponents.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
-            app:navigationIcon="@drawable/_menu_icon"
+            app:title="@string/ShoppersStoppe"
+            app:titleTextAppearance="@style/AppLayoutSweetCart.ActiveItemTextAppearance"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
