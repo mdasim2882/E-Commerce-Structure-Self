@@ -38,9 +38,9 @@ public class ShoppersStop extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shoppers_stop);
-        setUpToolbar();
-        setRecyclerView();
+        setContentView(R.layout.activity_base_layout);
+//        setUpToolbar();
+//        setRecyclerView();
 
     }
 

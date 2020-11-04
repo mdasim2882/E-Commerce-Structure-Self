@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_alternates"
                 android:hint="Mobile no."
+                android:inputType="phone"
                 android:textColor="@color/purple_700"
                 android:textColorHint="@color/purple_200" />
         </com.google.android.material.textfield.TextInputLayout>
