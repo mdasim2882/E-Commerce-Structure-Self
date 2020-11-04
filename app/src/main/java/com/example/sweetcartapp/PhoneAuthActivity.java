@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
     private String inputOTP;
     EditText mobileno;
     EditText otpno;
+    TextView app_name_;
     TextInputLayout layoutmob, layoutOTP;
     Button btnsend,btnvalidate;
 
@@ -57,8 +59,8 @@ public class PhoneAuthActivity extends AppCompatActivity {
         btnsend=findViewById(R.id.verifybutton);
         btnvalidate=findViewById(R.id.verifybutton);
 
-
-        layoutmob =  findViewById(R.id.ll_mobno);
+        app_name_ = findViewById(R.id.app_name_logo);
+        layoutmob = findViewById(R.id.ll_mobno);
         layoutOTP = findViewById(R.id.ll_otpno);
     }
 
@@ -69,8 +71,14 @@ public class PhoneAuthActivity extends AppCompatActivity {
     }
     public void authenticateOTP(View view) {
         String input = otpno.getText().toString();
-        if(checkOTPnoValidityInputs())
-        verifyCode(input);
+        if (checkOTPnoValidityInputs()) {
+            try {
+                verifyCode(input);
+            } catch (Exception e) {
+                Toast.makeText(this, "Error occured: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
 
 /*--------------------------------Phone Authentication Methods-----------------------------------*/

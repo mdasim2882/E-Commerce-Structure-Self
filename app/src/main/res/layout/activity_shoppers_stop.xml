@@ -8,7 +8,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/app_bar"
@@ -17,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"
             app:navigationIcon="@drawable/_menu_icon"
-            app:titleTextColor="@color/white"/>
+            app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -26,6 +27,7 @@
         android:layout_marginTop="56dp"
         android:background="@color/cardview_shadow_end_color"
         android:paddingStart="@dimen/cardview_default_elevation"
+        android:elevation="8dp"
         android:paddingEnd="@dimen/cardview_default_elevation"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

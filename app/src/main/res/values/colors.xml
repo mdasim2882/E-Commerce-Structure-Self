@@ -12,4 +12,6 @@
     <!--Customized Theme-->
     <color name="textInputOutlineColor">#2224E3</color>
     <color name="textColorPrimary">#4600C2</color>
+    <color name="red">#FF1100</color>
+    <color name="orange">#FF3C00</color>
 </resources>
