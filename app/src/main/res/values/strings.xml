@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SweetCartApp</string>
+    <string name="app_name">Sweet Cart</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Welcome to Sweet Cart</string>
     <string name="fast_blank_fragment">Fast delivery at your doorsteps</string>

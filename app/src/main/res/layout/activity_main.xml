@@ -21,16 +21,19 @@
         android:layout_below="@id/imageLogin"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Create account to continue "
+        android:text="Create an account to continue "
         android:fontFamily="@font/montserrat_alternates"
         android:textColor="@color/design_default_color_primary_dark"
         android:textSize="24sp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
+        app:cornerRadius="5dp"
+        android:fontFamily="@font/montserrat_alternates"
+        android:textStyle="bold"
         android:backgroundTint="@color/design_default_color_primary"
         android:onClick="starthere"
         android:text="Get Started"
