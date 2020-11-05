@@ -18,9 +18,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks;
 
@@ -33,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PhoneAuthActivity extends AppCompatActivity {
 
-
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private String verificationCodeBySystem;
     private boolean codeSentStatus;
     private final String TAG = getClass().getSimpleName();
@@ -44,20 +47,67 @@ public class PhoneAuthActivity extends AppCompatActivity {
     EditText otpno;
     TextView app_name_;
     TextInputLayout layoutmob, layoutOTP;
-    Button btnsend,btnvalidate;
+    Button btnsend, btnvalidate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_auth);
         initializeLayoutElements();
+
+        initializeCallback();
+    }
+
+    private void initializeCallback() {
+        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            @Override
+            public void onVerificationCompleted(PhoneAuthCredential credential) {
+                Log.d(TAG, "onVerificationCompleted: Automatically Verified " + credential);
+                String code = credential.getSmsCode();
+                /* Check if OTP is received on the current device is not null
+                 *  Store it into the CommonUserInfoDetails.inputOTP
+                 *  Verify it with PhoneAuth Credentials
+                 * */
+                String f = FirebaseAuth.getInstance().getUid();
+                Log.d(TAG, "onVerificationCompleted: FUID " + f);
+                if (code != null) {
+                    inputOTP = code;
+                    Log.d(TAG, " RECEIVED OTP ON DEVICE: " + inputOTP);
+                    verifyCode(code);
+                }
+            }
+
+            @Override
+            public void onVerificationFailed(FirebaseException e) {
+                // This callback is invoked in an invalid request for verification is made,
+                // for instance if the the phone number format is not valid.
+                Log.d(TAG, "onVerificationFailed: called");
+                if (codeSentStatus) {
+                    autoverifiedStatus = false;
+                }
+
+                Log.d(TAG, "onVerificationFailed Called: LOG MESSAGE : \n" + e.getMessage());
+            }
+
+            @Override
+            public void onCodeSent(@NonNull String s,
+                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                super.onCodeSent(s, token);
+                Log.d(TAG, "onCodeSent: Called" + s);
+                codeSentStatus = true;
+                verificationCodeBySystem = s;
+                autoverifiedStatus = false;
+                startTimerResendCode();
+            }
+        };
     }
 
     private void initializeLayoutElements() {
         mobileno = findViewById(R.id.contactno);
         otpno = findViewById(R.id.otpnum);
-        btnsend=findViewById(R.id.verifybutton);
-        btnvalidate=findViewById(R.id.verifybutton);
+        btnsend = findViewById(R.id.verifybutton);
+        btnvalidate = findViewById(R.id.verifybutton);
 
         app_name_ = findViewById(R.id.app_name_logo);
         layoutmob = findViewById(R.id.ll_mobno);
@@ -83,61 +133,28 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
 /*--------------------------------Phone Authentication Methods-----------------------------------*/
     public void sendVerificationCodeToUser(String phoneNo) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+/*        PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNo,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 TaskExecutors.MAIN_THREAD,   // Activity (for callback binding)
-                mCallbacks);// OnVerificationStateChangedCallbacks
+                mCallbacks);// OnVerificationStateChangedCallbacks*/
+
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
+                        .setPhoneNumber(phoneNo)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)                 // Activity (for callback binding)
+                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+
+
     }
-
-    private OnVerificationStateChangedCallbacks mCallbacks =
-            new OnVerificationStateChangedCallbacks() {
-
-                @Override
-                public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                    super.onCodeSent(s, forceResendingToken);
-                    Log.d(TAG, "onCodeSent: Called");
-                    codeSentStatus = true;
-                    verificationCodeBySystem = s;
-                    autoverifiedStatus = false;
-                    startTimerResendCode();
-
-                }
-
-                @Override
-                public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                    Log.d(TAG, "onVerificationCompleted: Automatically Verified");
-
-                    String code = phoneAuthCredential.getSmsCode();
-                    /* Check if OTP is received on the current device is not null
-                     *  Store it into the CommonUserInfoDetails.inputOTP
-                     *  Verify it with PhoneAuth Credentials
-                     * */
-
-                    if (code != null) {
-                        inputOTP = code;
-                        Log.d(TAG, " RECEIVED OTP ON DEVICE: " + inputOTP);
-                        verifyCode(code);
-                    }
-                }
-
-                @Override
-                public void onVerificationFailed(FirebaseException e) {
-
-                    if (codeSentStatus) {
-                        autoverifiedStatus = false;
-                    }
-
-                    Log.d(TAG, "onVerificationFailed Called: LOG MESSAGE : \n" + e.getMessage());
-                }
-            };
-
     private void startTimerResendCode() {
         // Start Countdown timer here for 50 seconds
 
     }
-
     public void verifyCode(String codeByUser) {
         // Show a Verifying... dialog
         vfOnPressed = false;
@@ -148,7 +165,6 @@ public class PhoneAuthActivity extends AppCompatActivity {
         signInTheUserByCredentials(credential);
 
     }
-
     private void signInTheUserByCredentials(PhoneAuthCredential credential) {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -162,10 +178,9 @@ public class PhoneAuthActivity extends AppCompatActivity {
                             if (autoverifiedStatus) {
                                 //Start the Welcome Fragments to the user
                                 startWelcomePages();
-
-
                             }
-
+                            String f = FirebaseAuth.getInstance().getUid();
+                            Log.d(TAG, "onVerificationCompleted: FUID " + f);
                             Log.d(TAG, "onComplete: DONE WITH OTP VERIFICATION ");
                             Toast.makeText(PhoneAuthActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
                             vfOnPressed = true;
@@ -184,12 +199,12 @@ public class PhoneAuthActivity extends AppCompatActivity {
                 });
     }
 
+
     private void startWelcomePages() {
         Intent i=new Intent(this,WelcomePagesActivity.class);
         startActivity(i);
         finish();
     }
-
 
     public boolean checkOTPnoValidityInputs() {
         boolean otpStatus;
@@ -226,7 +241,6 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
 
     }
-
 
 
     }
