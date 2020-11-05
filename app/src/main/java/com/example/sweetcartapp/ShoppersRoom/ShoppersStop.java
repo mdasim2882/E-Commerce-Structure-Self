@@ -1,23 +1,14 @@
 package com.example.sweetcartapp.ShoppersRoom;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.example.sweetcartapp.R;
 import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.History;
@@ -39,7 +30,7 @@ public class ShoppersStop extends AppCompatActivity {
             R.drawable.lassi
     };
     String titleID[] = {"Rasgulla", "Gulab Jamun", "Barfi", "Jalebi", "Samosa", "Lassi"};
-    String priceID[] = {"Rs 21", "Rs 34", "Rs 16", "Rs 24", "Rs 7", "Rs 14"};
+    String priceID[] = {"Rs 21", "Rs 3", "Rs 16", "Rs 24", "Rs 7", "Rs 14"};
     private BottomNavigationView bottomNavigationView;
 
     @Override
