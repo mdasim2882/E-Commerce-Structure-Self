@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/logo_sweet_cart"
         android:supportsRtl="true"
         android:theme="@style/Theme.SweetCartApp">
-        <activity android:name=".ShoppersRoom.Settings"></activity>
+        <activity android:name=".ShoppersRoom.Settings" />
         <activity android:name=".ShoppersRoom.ShoppersStop" />
         <activity android:name=".WelcomePagesActivity" />
         <activity android:name=".PhoneAuthActivity" />

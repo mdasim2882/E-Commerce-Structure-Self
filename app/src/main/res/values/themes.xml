@@ -41,10 +41,16 @@
     </style>
 
 
-    <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">13sp</item>
+    <style name="BottomNavigation.InactiveItemTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/montserrat_alternates</item>
     </style>
+
+    <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/montserrat_alternates</item>
+    </style>
+
 
     <style name="AppLayoutSweetCart.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textSize">20sp</item>
