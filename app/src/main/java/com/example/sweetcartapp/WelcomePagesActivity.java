@@ -1,19 +1,21 @@
 package com.example.sweetcartapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.sweetcartapp.ShoppersRoom.ShoppersStop;
 import com.example.sweetcartapp.ViewPagerAdapter.ZoomOutPageTransformer;
 import com.example.sweetcartapp.ViewPagerAdapter.mViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class WelcomePagesActivity extends AppCompatActivity {
+
     ViewPager viewPager;
+    private final String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,10 @@ public class WelcomePagesActivity extends AppCompatActivity {
 
         // Add a view pager for better UI/UX
         setMyViewPager();
+        String uid = FirebaseAuth.getInstance().getUid();
+        Log.d(TAG, "UID: " + uid);
+
+
     }
 
     private void setMyViewPager() {

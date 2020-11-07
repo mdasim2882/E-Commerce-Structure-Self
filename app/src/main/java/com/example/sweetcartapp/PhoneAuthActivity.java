@@ -1,6 +1,8 @@
 package com.example.sweetcartapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,13 +27,16 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
+
+
 /*
 * Here a Log.d(....) is only used for debugging purpose
 *
 * */
 
 public class PhoneAuthActivity extends AppCompatActivity {
-
+    public final String LOGIN_STATS = "loginStats";
+    public final String ISLOGIN = "islogin";
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private String verificationCodeBySystem;
     private boolean codeSentStatus;
@@ -172,7 +177,12 @@ public class PhoneAuthActivity extends AppCompatActivity {
                             autoverifiedStatus = true;
                             if (autoverifiedStatus) {
                                 //Start the Welcome Fragments to the user
+                                SharedPreferences sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean(ISLOGIN, true);
+                                editor.commit();
                                 startWelcomePages();
+
                             }
                             String f = FirebaseAuth.getInstance().getUid();
                             Log.d(TAG, "onVerificationCompleted: FUID " + f);

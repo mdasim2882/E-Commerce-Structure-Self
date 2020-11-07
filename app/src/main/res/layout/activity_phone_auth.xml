@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true">
 
         <ImageView
-            android:src="@drawable/logo_sweet_cart"
+            android:src="@drawable/sc144"
             android:id="@+id/task2Khurram"
             android:scaleType="fitCenter"
             android:layout_width="wrap_content"

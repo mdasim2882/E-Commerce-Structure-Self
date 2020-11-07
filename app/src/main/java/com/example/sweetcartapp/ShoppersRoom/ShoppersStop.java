@@ -5,7 +5,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,9 +94,9 @@ public class ShoppersStop extends AppCompatActivity {
          * Must be retrieved from database to here only
          * ProductEntry contains three fields:
          * ImageView productImage
-        * TextView productName, productCost;
-        * */
-        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(this,imageId,titleID,priceID);
+         * TextView productName, productCost;
+         * */
+        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(this, imageId, titleID, priceID);
         recyclerView.setAdapter(adapter);
         int largePadding = getResources().getDimensionPixelSize(R.dimen.updown_product_grid_spacing);
         int smallPadding = getResources().getDimensionPixelSize(R.dimen.side_product_grid_spacing_small);
@@ -105,12 +104,14 @@ public class ShoppersStop extends AppCompatActivity {
 
     }
 
-    private void setUpToolbar() {
+
+
+/*
+ private void setUpToolbar() {
         Toolbar toolbar = findViewById(R.id.app_bar);
        setSupportActionBar(toolbar);
     }
-
-/*    @Override
+ @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
