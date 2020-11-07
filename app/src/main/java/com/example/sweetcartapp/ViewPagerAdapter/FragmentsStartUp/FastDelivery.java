@@ -42,7 +42,7 @@ public class FastDelivery extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment FastDelivery.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static FastDelivery newInstance(String param1, String param2) {
         FastDelivery fragment = new FastDelivery();
         Bundle args = new Bundle();

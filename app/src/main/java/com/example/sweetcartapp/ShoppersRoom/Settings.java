@@ -2,8 +2,10 @@ package com.example.sweetcartapp.ShoppersRoom;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +23,7 @@ public class Settings extends AppCompatActivity {
 
         setUpToolbar();
         settingfragmentforSetting();
-
+        //TODO: Use SharedPreferences to getDefault file and change SETTINGS using keys defined in setting_preferences.xml
 
     }
 
@@ -43,10 +45,21 @@ public class Settings extends AppCompatActivity {
 
     @SuppressLint("ValidFragment")
     private static class MyPrefenceFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_preferences);
+            Preference myPref = (Preference) findPreference("logout_button_preference");
+            myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    //TODO: Perform logout operations here
+                    Toast.makeText(getActivity(), "Logout Successfully", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
+
         }
     }
 

@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sweetcartapp.R;
+import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.Favourites;
 import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.History;
 import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.Home;
 import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.Offers;
-import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.SettingsSC;
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductCardRecyclerViewAdapter;
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductGridItemDecoration;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -64,7 +64,7 @@ public class ShoppersStop extends AppCompatActivity {
                         fragment = new History();
                         break;
                     case R.id.action_favourites:
-                        fragment = new SettingsSC();
+                        fragment = new Favourites();
                         break;
 
                 }
