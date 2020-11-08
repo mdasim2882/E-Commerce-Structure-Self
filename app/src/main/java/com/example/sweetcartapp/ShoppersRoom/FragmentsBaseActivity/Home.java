@@ -8,6 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +38,8 @@ public class Home extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TextView textCartItemCount;
+    int mCartItemCount = 4;
 
     public Home() {
         // Required empty public constructor
@@ -99,7 +103,7 @@ public class Home extends Fragment {
          * ImageView productImage
          * TextView productName, productCost;
          * */
-        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(getContext(), imageId, titleID, priceID);
+        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(getActivity(), imageId, titleID, priceID);
         recyclerView.setAdapter(adapter);
         int largePadding = getResources().getDimensionPixelSize(R.dimen.updown_product_grid_spacing);
         int smallPadding = getResources().getDimensionPixelSize(R.dimen.side_product_grid_spacing_small);
@@ -118,7 +122,41 @@ public class Home extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menuInflater.inflate(R.menu.shopper_toolbar_menu, menu);
+        setMenuOperationForBadge(menu);
         super.onCreateOptionsMenu(menu, menuInflater);
+    }
+
+    private void setMenuOperationForBadge(Menu menu) {
+        final MenuItem menuItem = menu.findItem(R.id.action_cart);
+        View actionView = menuItem.getActionView();
+        textCartItemCount = actionView.findViewById(R.id.cart_badge);
+
+
+        //TODO: Call setupBadge() function for every newly added item to cart
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+    }
+
+    private void setupBadge() {
+        //TODO: Increase text on cart by 1 for each click on add item to cart
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
     @Override
@@ -126,6 +164,9 @@ public class Home extends Fragment {
         if (item.getItemId() == R.id.settingiconclick) {
             Intent i = new Intent(getActivity(), Settings.class);
             startActivity(i);
+        } else if (item.getItemId() == R.id.action_cart) {
+            // TODO: Do something with cart fragment here
+            Toast.makeText(getActivity(), "Show cart items", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

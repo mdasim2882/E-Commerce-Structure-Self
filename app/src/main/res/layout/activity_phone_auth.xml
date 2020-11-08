@@ -10,28 +10,30 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_above="@+id/llayout"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/sc144"
             android:id="@+id/task2Khurram"
-            android:scaleType="fitCenter"
             android:layout_width="wrap_content"
             android:layout_height="110dp"
+            android:rotation="-17"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sc144"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/app_name_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/orange"
+            android:fontFamily="@font/montserrat_alternates"
+            android:rotationY="17"
             android:text="Sweet Cart"
-            android:fontFamily="@font/montserrat_alternates" />
+            android:textColor="@color/orange"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,72 +44,87 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ll_mobno"
-            style="@style/Widget.SweetCart.TextInputLayout."
-            android:layout_width="280dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/purple_200"
-            app:hintAnimationEnabled="true">
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/contactno"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ll_mobno"
+                style="@style/Widget.SweetCart.TextInputLayout."
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_alternates"
-                android:hint="Mobile no."
-                android:inputType="phone"
-                android:textColor="@color/purple_700"
-                android:textColorHint="@color/purple_200" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:backgroundTint="@color/white"
+                android:textColor="@color/purple_200"
+                app:hintAnimationEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/contactno"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_alternates"
+                    android:hint="Mobile no."
+                    android:inputType="phone"
+                    android:textColor="@color/purple_700"
+                    android:textColorHint="@color/purple_200" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ll_otpno"
-            style="@style/Widget.SweetCart.TextInputLayout."
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/purple_200"
-            app:hintAnimationEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/otpnum"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ll_otpno"
+                style="@style/Widget.SweetCart.TextInputLayout."
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_alternates"
-                android:hint="OTP"
-                android:inputType="numberPassword"
-                android:textColor="@color/purple_700"
-                android:textColorHint="@color/purple_200" />
+                android:backgroundTint="@color/white"
+                android:textColor="@color/purple_200"
+                app:hintAnimationEnabled="true">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/otpnum"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_alternates"
+                    android:hint="OTP"
+                    android:inputType="numberPassword"
+                    android:textColor="@color/purple_700"
+                    android:textColorHint="@color/purple_200" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/verifybutton"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="@color/red"
-            app:cornerRadius="18dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            android:onClick="verifyUsingButton"
-            android:text="Send OTP"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/verifybutton"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/red"
+                android:onClick="verifyUsingButton"
 
-            />
+                android:text="Send OTP"
+                app:cornerRadius="18dp"
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/checkOtp"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:cornerRadius="18dp"
-            android:onClick="authenticateOTP"
-            android:text="Validate OTP"
+                />
 
-            />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/checkOtp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:onClick="authenticateOTP"
+                android:text="Validate OTP"
+                app:cornerRadius="18dp"
+
+                />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

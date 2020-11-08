@@ -103,9 +103,6 @@ public class ShoppersStop extends AppCompatActivity {
         recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
 
     }
-
-
-
 /*
  private void setUpToolbar() {
         Toolbar toolbar = findViewById(R.id.app_bar);
