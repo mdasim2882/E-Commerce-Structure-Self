@@ -28,6 +28,4 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
         // addtoCart=itemView.findViewById(R.id.addtoCartButton);
         // TODO: Find and store views from itemView
     }
-
-
 }

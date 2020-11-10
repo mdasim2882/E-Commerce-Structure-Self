@@ -1,6 +1,8 @@
 package com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sweetcartapp.R;
 import com.example.sweetcartapp.ShoppersRoom.HelperMethods.ProductEntry;
+import com.example.sweetcartapp.ShoppersRoom.ProductOverview;
 
 import java.util.List;
 
@@ -23,13 +26,14 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private Integer[] cardImages;
     String[] cardTitle;
     String[] cardSubtitle;
+    Activity activity;
 
     public ProductCardRecyclerViewAdapter(Context context, Integer[] imageList, String[] cardTitle, String[] cardSubtitle) {
         this.cardImages = imageList;
         this.cardTitle = cardTitle;
         this.cardSubtitle = cardSubtitle;
         this.context = context;
-
+        activity = (Activity) context;
     }
 
     @NonNull
@@ -54,7 +58,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                 //TODO: Perform card clicked working
                 Context c = v.getContext();
                 Toast.makeText(c, cardTitle[position], Toast.LENGTH_SHORT).show();
-
+                goToProductdetailsActivity(v);
             }
         });
  /*       holder.addtoCart.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +68,14 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
             }
         });*/
 
+    }
+
+    private void goToProductdetailsActivity(View v) {
+        Intent i = new Intent(v.getContext(), ProductOverview.class);
+        v.getContext().startActivity(i);
+        // NOTE: Remember the important feature of Activity typecasting in constructor of Adapter
+        // in order to use overridePendingTransition() method
+        activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
 
 
