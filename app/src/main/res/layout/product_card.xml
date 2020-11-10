@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/cardofproducts"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:outlineAmbientShadowColor="@color/purple_500"
     app:cardBackgroundColor="@android:color/white"
-    app:cardElevation="3dp"
     app:cardCornerRadius="0dp"
-    android:outlineAmbientShadowColor="@color/purple_500">
+    app:cardElevation="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:orientation="vertical">
 
@@ -23,27 +23,61 @@
             android:background="?attr/colorBackgroundFloating"
             android:src="@drawable/ic_outline_settings_24" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/product_title"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:text="@string/sweet_product_title"
-                android:textAppearance="?attr/textAppearanceBody2" />
+                android:gravity="start"
+                android:orientation="vertical"
+                android:padding="5dp">
 
-            <TextView
-                android:id="@+id/product_price"
-                android:textAlignment="textStart"
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sweet_product_title"
+                    android:textAlignment="textStart"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price_product_description"
+                    android:textAlignment="textStart"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttoncart_ll"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/price_product_description"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
-        </LinearLayout>
+                android:layout_alignParentEnd="true">
+
+
+                <!--  <com.google.android.material.floatingactionbutton.FloatingActionButton
+                      android:id="@+id/addtoCartButton"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      app:fabCustomSize="35dp"
+                      android:src="@drawable/ic_round_add_shopping_cart_24"
+                      app:tint="@color/white"
+                      app:backgroundTint="@color/textInputOutlineColor"/>-->
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:lottie_autoPlay="true"
+
+                    app:lottie_rawRes="@raw/animated_cart"
+                    app:lottie_loop="true" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

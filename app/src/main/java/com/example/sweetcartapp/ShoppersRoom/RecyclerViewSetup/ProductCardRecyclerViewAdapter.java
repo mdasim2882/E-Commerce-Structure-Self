@@ -54,8 +54,15 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                 //TODO: Perform card clicked working
                 Context c = v.getContext();
                 Toast.makeText(c, cardTitle[position], Toast.LENGTH_SHORT).show();
+
             }
         });
+ /*       holder.addtoCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Item added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
     }
 
