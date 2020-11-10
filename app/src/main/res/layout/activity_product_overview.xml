@@ -1,6 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <ImageView
+            android:id="@+id/detailed_activity_image"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_weight="4"
+            android:src="@drawable/rasgulla"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rasgulla"
+            android:textAlignment="center"
+            android:fontFamily="@font/montserrat_alternates"
+            android:layout_weight="1"
+            android:textSize="28sp"
+            android:padding="10dp"
+            android:textColor="@color/cardview_dark_background" />
+
+        <TextView
+            android:id="@+id/detailed_product_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="6dp"
+            android:text="Ingredients: Sugar,Wheat Flour,Kewda,Soda"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_light_default"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:stretchColumns="2">
+
+                <TableRow>
+
+                    <TextView
+                        android:text="Product Description"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:padding="3dp" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:layout_width="100dp"
+                        android:padding="3dp"
+                        android:text="Qty"
+                        android:textAlignment="center"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:padding="3dp"
+                        android:layout_width="wrap_content"
+                        android:text="Price"
+                        android:textAlignment="center"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Rasgulla"
+                        android:padding="4dp"
+                        android:textAlignment="textStart" />
+
+                    <TextView
+                        android:text="1 kg"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:gravity="center"
+                        android:padding="3dip" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Rs 40"
+                        android:textAlignment="center"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text=" @CGST"
+                        android:padding="4dp"
+
+                        />
+
+                    <TextView
+                        android:text=""
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:gravity="center"
+                        android:padding="3dip" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Rs 5.4"
+                        android:textAlignment="center"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text=" @GST"
+                        android:padding="4dp"
+
+                        />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text=""
+                        android:gravity="center"
+                        android:padding="3dip" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Rs 3.1"
+                        android:textAlignment="center"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Shipping Charges"
+                        android:padding="3dp"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text=""
+                        android:gravity="center"
+                        android:padding="3dip" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Rs 10"
+                        android:textAlignment="center"
+                        android:padding="3dip" />
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Rs 58.5"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:paddingTop="5dp"
+                    android:textAlignment="viewEnd"
+                    android:paddingEnd="30dp"
+                    android:fontFamily="@font/montserrat_alternates"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:fitsSystemWindows="true"
+            android:layout_weight="1"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/addtocart_animation"
+            app:lottie_loop="true" />
+    </LinearLayout>
 </RelativeLayout>
