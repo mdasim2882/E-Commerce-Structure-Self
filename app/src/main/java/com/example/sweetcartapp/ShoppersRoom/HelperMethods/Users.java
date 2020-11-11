@@ -1,6 +1,5 @@
 
 package com.example.sweetcartapp.ShoppersRoom.HelperMethods;
-
 public class Users {
     public int ID;
     public String name;

@@ -1,7 +1,6 @@
 
 package com.example.sweetcartapp.ShoppersRoom;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,18 +44,21 @@ public class ProductOverview extends AppCompatActivity {
 
         performButtonClickOperation();
         productPhoto.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
+                    finish();
                     Log.i(TAG, "onTouch: DOWN -----DOWN");
+                    return true;
                 }
                 return true;
+
             }
         });
 
 
     }
+
 
 
     private void performButtonClickOperation() {
