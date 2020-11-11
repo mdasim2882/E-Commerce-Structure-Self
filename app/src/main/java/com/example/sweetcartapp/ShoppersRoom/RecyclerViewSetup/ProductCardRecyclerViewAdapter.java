@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,8 +56,8 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
                 //TODO: Perform card clicked working
                 Context c = v.getContext();
-                Toast.makeText(c, cardTitle[position], Toast.LENGTH_SHORT).show();
-                goToProductdetailsActivity(v);
+
+                goToProductdetailsActivity(v, cardTitle[position], cardImages[position]);
             }
         });
  /*       holder.addtoCart.setOnClickListener(new View.OnClickListener() {
@@ -70,8 +69,10 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     }
 
-    private void goToProductdetailsActivity(View v) {
+    private void goToProductdetailsActivity(View v, String title, Integer imageID) {
         Intent i = new Intent(v.getContext(), ProductOverview.class);
+        i.putExtra("Title", title);
+        i.putExtra("ImageID", imageID);
         v.getContext().startActivity(i);
         // NOTE: Remember the important feature of Activity typecasting in constructor of Adapter
         // in order to use overridePendingTransition() method

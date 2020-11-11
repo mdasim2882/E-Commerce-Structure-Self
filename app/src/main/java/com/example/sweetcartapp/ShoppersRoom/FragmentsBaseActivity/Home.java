@@ -2,6 +2,7 @@ package com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +40,7 @@ public class Home extends Fragment {
     private String mParam1;
     private String mParam2;
     private TextView textCartItemCount;
-    int mCartItemCount = 4;
+    public static int mCartItemCount = 0;
 
     public Home() {
         // Required empty public constructor
@@ -143,20 +144,21 @@ public class Home extends Fragment {
         });
     }
 
-    private void setupBadge() {
+    public void setupBadge() {
         //TODO: Increase text on cart by 1 for each click on add item to cart
-        if (textCartItemCount != null) {
-            if (mCartItemCount == 0) {
-                if (textCartItemCount.getVisibility() != View.GONE) {
-                    textCartItemCount.setVisibility(View.GONE);
-                }
-            } else {
-                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
-                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+        Log.d("Home", "setupBadge: called with count: " + mCartItemCount);
+        if (mCartItemCount == 0) {
+            if (textCartItemCount.getVisibility() != View.GONE) {
+                textCartItemCount.setVisibility(View.GONE);
+            }
+        } else {
+
+            textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+            if (textCartItemCount.getVisibility() != View.VISIBLE) {
                     textCartItemCount.setVisibility(View.VISIBLE);
                 }
             }
-        }
+
     }
 
     @Override

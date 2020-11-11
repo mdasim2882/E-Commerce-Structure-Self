@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/myBaseOverview"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -23,6 +24,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tile_in_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Rasgulla"
@@ -50,13 +52,12 @@
             android:background="@drawable/roundbg"
             android:layout_width="340dp"
             android:elevation="1dp"
-            android:layout_margin="5dp"
+            android:layout_margin="4dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
             <Spinner
                 android:id="@+id/qtySpinner"
-                android:entries="@array/planets_array"
                 android:layout_width="350dp"
                 android:padding="2dp"
                 android:layout_height="40dp" />
@@ -115,7 +116,7 @@
 
                     <TextView
                         android:id="@+id/qtyTextChange"
-                        android:text="1 kg"
+                        android:text="-"
                         android:fontFamily="@font/montserrat_alternates"
                         android:gravity="center"
                         android:padding="3dip" />
@@ -229,25 +230,20 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
+
         android:layout_alignParentBottom="true"
         android:padding="2dp">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/addToCartButton"
             android:layout_width="0dp"
             android:padding="5dp"
+            android:backgroundTint="@color/orange"
             android:layout_height="wrap_content"
             android:text="ADD to Cart"
+            android:fontFamily="@font/montserrat_alternates"
             android:layout_weight="1"
             android:layout_margin="2dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:padding="2dp"
-            android:layout_margin="2dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Place Order"
-            android:layout_weight="1" />
     </LinearLayout>
 </RelativeLayout>
