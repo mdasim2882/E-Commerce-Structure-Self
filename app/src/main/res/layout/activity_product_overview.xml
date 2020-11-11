@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,13 +9,18 @@
         android:orientation="vertical"
         android:weightSum="10">
 
-        <ImageView
-            android:id="@+id/detailed_activity_image"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:layout_weight="4"
-            android:src="@drawable/rasgulla"
-            android:scaleType="fitXY" />
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
+
+            <ImageView
+                android:id="@+id/detailed_activity_image"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:src="@drawable/rasgulla"
+                android:scaleType="fitXY" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -35,15 +39,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:padding="6dp"
-            android:text="Ingredients: Sugar,Wheat Flour,Kewda,Soda"
+            android:maxLines="3"
+            android:text="@string/ingredients"
             android:textAlignment="center"
             android:textColor="@color/common_google_signin_btn_text_light_default"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:background="@drawable/roundbg"
+            android:layout_width="340dp"
+            android:elevation="1dp"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <Spinner
+                android:id="@+id/qtySpinner"
+                android:entries="@array/planets_array"
+                android:layout_width="350dp"
+                android:padding="2dp"
+                android:layout_height="40dp" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_weight="2"
             android:padding="5dp">
 
             <TableLayout
@@ -58,6 +82,7 @@
                         android:text="Product Description"
                         android:fontFamily="@font/montserrat_alternates"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:textAlignment="center"
                         android:padding="3dp" />
 
@@ -65,6 +90,7 @@
                         android:fontFamily="@font/montserrat_alternates"
                         android:layout_width="100dp"
                         android:padding="3dp"
+                        android:textStyle="bold"
                         android:text="Qty"
                         android:textAlignment="center"
                         android:textColor="@color/black" />
@@ -72,6 +98,7 @@
                     <TextView
                         android:fontFamily="@font/montserrat_alternates"
                         android:padding="3dp"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:text="Price"
                         android:textAlignment="center"
@@ -82,11 +109,12 @@
 
                     <TextView
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="Rasgulla"
+                        android:text=" Rasgulla"
                         android:padding="4dp"
                         android:textAlignment="textStart" />
 
                     <TextView
+                        android:id="@+id/qtyTextChange"
                         android:text="1 kg"
                         android:fontFamily="@font/montserrat_alternates"
                         android:gravity="center"
@@ -163,34 +191,63 @@
                         android:textAlignment="center"
                         android:padding="3dip" />
                 </TableRow>
+
+                <TableRow
+                    android:layout_height="2px"
+                    android:background="@color/black">
+
+                    <TextView
+                        android:layout_span="1"
+                        android:layout_height="1px" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:text=" Total"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:textColor="@color/black"
+                        android:padding="5dp" />
+
+                    <TextView android:padding="5dp" />
+
+                    <TextView
+                        android:text="Rs 58.5"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:textColor="@color/black" />
+                </TableRow>
             </TableLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Rs 58.5"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingTop="5dp"
-                    android:textAlignment="viewEnd"
-                    android:paddingEnd="30dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:textColor="@color/black" />
-            </LinearLayout>
         </LinearLayout>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:fitsSystemWindows="true"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_alignParentBottom="true"
+        android:padding="2dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:text="ADD to Cart"
             android:layout_weight="1"
-            app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/addtocart_animation"
-            app:lottie_loop="true" />
+            android:layout_margin="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:padding="2dp"
+            android:layout_margin="2dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Place Order"
+            android:layout_weight="1" />
     </LinearLayout>
 </RelativeLayout>
