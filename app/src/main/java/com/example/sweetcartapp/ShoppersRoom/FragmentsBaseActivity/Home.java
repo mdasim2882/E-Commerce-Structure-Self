@@ -1,7 +1,11 @@
 package com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,13 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sweetcartapp.R;
+import com.example.sweetcartapp.ShoppersRoom.Commons.BroadCasterInfo;
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductCardRecyclerViewAdapter;
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductGridItemDecoration;
 import com.example.sweetcartapp.ShoppersRoom.Settings;
@@ -30,7 +37,8 @@ import com.example.sweetcartapp.ShoppersRoom.Settings;
  * create an instance of this fragment.
  */
 public class Home extends Fragment {
-
+    public static final String ITEM_ADDED_TO_CART = "Item added to cart";
+    LocalBroadcastManager localBMFragments;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,6 +49,26 @@ public class Home extends Fragment {
     private String mParam2;
     private TextView textCartItemCount;
     public static int mCartItemCount = 0;
+    Handler h = new Handler();
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setupBadge();
+            final AlertDialog dialog = alertDialog.create();
+            dialog.show();
+            //Dismiss dialog after 3 seconds
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (dialog.isShowing())
+                        dialog.dismiss();
+                }
+            };
+            h.postDelayed(runnable, 3000);
+        }
+    };
+    private AlertDialog.Builder alertDialog;
 
     public Home() {
         // Required empty public constructor
@@ -77,6 +105,13 @@ public class Home extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         setHasOptionsMenu(true);
+        localBMFragments = LocalBroadcastManager.getInstance(getActivity());
+        localBMFragments.registerReceiver(broadcastReceiver, new IntentFilter(BroadCasterInfo.CART_BADGE));
+        alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setCancelable(true);
+        alertDialog.setTitle("Item added to cart");
+        alertDialog.setIcon(getResources().getDrawable(R.drawable.ic_outline_local_offer_24));
+        alertDialog.setMessage("");
     }
 
     @Override
@@ -168,8 +203,17 @@ public class Home extends Fragment {
             startActivity(i);
         } else if (item.getItemId() == R.id.action_cart) {
             // TODO: Do something with cart fragment here
+            Intent i = new Intent(getActivity(), Settings.class);
+            startActivity(i);
             Toast.makeText(getActivity(), "Show cart items", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        localBMFragments.unregisterReceiver(broadcastReceiver);
+
     }
 }

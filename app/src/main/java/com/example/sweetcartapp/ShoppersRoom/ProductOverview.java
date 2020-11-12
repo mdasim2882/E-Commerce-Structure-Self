@@ -12,11 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.sweetcartapp.R;
+import com.example.sweetcartapp.ShoppersRoom.Commons.BroadCasterInfo;
 import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.Home;
 import com.example.sweetcartapp.ShoppersRoom.HelperMethods.Users;
 
@@ -24,13 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductOverview extends AppCompatActivity implements GestureDetector.OnGestureListener {
+    private GestureDetector gestureDetector;
+    private double SWIPE_THRESHOLD = 100;
+    private double SWIPE_VELOCITY_THRESHOLD = 100;
 
     TextView qtyamount, titleProduct;
     ImageView productPhoto;
     Button addToCart;
-    private GestureDetector gestureDetector;
-    private double SWIPE_THRESHOLD = 100;
-    private double SWIPE_VELOCITY_THRESHOLD = 100;
+
+    LocalBroadcastManager localBroadcastManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
         performButtonClickOperation();
         this.gestureDetector = new GestureDetector(this, this);
         setSwipeDownGesturetoFinishActivity();
+
     }
 
     private void setSwipeDownGesturetoFinishActivity() {
@@ -66,10 +70,47 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
             @Override
             public void onClick(View v) {
                 int value = Home.mCartItemCount++;
-                Toast.makeText(ProductOverview.this, "Item added to cart: " + value, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ProductOverview.this, ShoppersStop.class));
 
+                /*BroadCast Listener: Requirement FOR SENDER
+                 * Create field in activity that wants to send BroadCast
+                 *  LocalBroadcastManager localBroadcastManager;
+                 * localBroadcastManager = LocalBroadcastManager.getInstance(this);
+                 *  Create a function to send BroadCast() defined using
+                 * Intents having common variable in receiver and sender;
+                 * For e.g.,
+                 *  private void startMyItemAddedBroadCast() {
+                                 Intent intent = new Intent(BroadCasterInfo.CART_BADGE);
+                                localBroadcastManager.sendBroadcast(intent);
+                                }
+                 *
+                 * Requirement: FOR RECEIVER
+                 *      LocalBroadcastManager localBMFragments;
+                 *
+                 * Set listener action for text change or any other purpose
+                 *   private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+                        @Override
+                        public void onReceive(Context context, Intent intent) {
+                             setupBadge();
+                        }
+                    };
+                 *
+                 * In onCreate(){
+                  localBMFragments = LocalBroadcastManager.getInstance(getActivity());
+        localBMFragments.registerReceiver(broadcastReceiver, new IntentFilter(BroadCasterInfo.CART_BADGE));
+                 }
+                 *
+                 * Override an onDestroyMethod() to unregister Receiver
+                 *  @Override
+                        public void onDestroy() {
+                            super.onDestroy();
+                            localBMFragments.unregisterReceiver(broadcastReceiver);
 
+                        }
+                 *
+                 * *
+                 * */
+                startMyItemAddedBroadCast();
+                finish();
             }
         });
     }
@@ -87,6 +128,7 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
         productPhoto = findViewById(R.id.detailed_activity_image);
         addToCart = findViewById(R.id.addToCartButton);
 
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
     }
 
     private void loadImagesandSetTitle(String productTitle, Integer imagetobeLoaded) {
@@ -117,6 +159,11 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
         SetupSpinner(users);
 
 
+    }
+
+    private void startMyItemAddedBroadCast() {
+        Intent intent = new Intent(BroadCasterInfo.CART_BADGE);
+        localBroadcastManager.sendBroadcast(intent);
     }
 
     private void SetupSpinner(List<Users> users) {

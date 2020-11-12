@@ -56,7 +56,6 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
                 //TODO: Perform card clicked working
                 Context c = v.getContext();
-
                 goToProductdetailsActivity(v, cardTitle[position], cardImages[position]);
             }
         });
