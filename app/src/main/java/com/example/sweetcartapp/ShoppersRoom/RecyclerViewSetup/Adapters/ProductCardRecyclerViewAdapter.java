@@ -1,4 +1,4 @@
-package com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup;
+package com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sweetcartapp.R;
 import com.example.sweetcartapp.ShoppersRoom.HelperMethods.ProductEntry;
 import com.example.sweetcartapp.ShoppersRoom.ProductOverview;
+import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Holders.ProductCardViewHolder;
 
 import java.util.List;
 

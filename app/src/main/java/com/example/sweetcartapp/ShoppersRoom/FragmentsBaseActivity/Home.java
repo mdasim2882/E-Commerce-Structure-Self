@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,7 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sweetcartapp.R;
 import com.example.sweetcartapp.ShoppersRoom.Commons.BroadCasterInfo;
-import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductCardRecyclerViewAdapter;
+import com.example.sweetcartapp.ShoppersRoom.OrderedItemsActivity;
+import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Adapters.ProductCardRecyclerViewAdapter;
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductGridItemDecoration;
 import com.example.sweetcartapp.ShoppersRoom.Settings;
 
@@ -121,9 +121,7 @@ public class Home extends Fragment {
         // Inflate the layout for this fragment
         setUpToolbar(view);
         setRecyclerView(view);
-
         return view;
-
     }
 
     private void setRecyclerView(View view) {
@@ -203,9 +201,8 @@ public class Home extends Fragment {
             startActivity(i);
         } else if (item.getItemId() == R.id.action_cart) {
             // TODO: Do something with cart fragment here
-            Intent i = new Intent(getActivity(), Settings.class);
+            Intent i = new Intent(getActivity(), OrderedItemsActivity.class);
             startActivity(i);
-            Toast.makeText(getActivity(), "Show cart items", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

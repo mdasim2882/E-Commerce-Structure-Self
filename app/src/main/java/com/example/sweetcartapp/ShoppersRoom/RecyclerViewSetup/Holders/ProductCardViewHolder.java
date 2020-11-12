@@ -1,4 +1,4 @@
-package com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup;
+package com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Holders;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -13,8 +13,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ProductCardViewHolder extends RecyclerView.ViewHolder {
 
-    CardView productCard;
-    ImageView imgCard;
+    public CardView productCard;
+    public ImageView imgCard;
     public TextView productTitle;
     public TextView productPrice;
     FloatingActionButton addtoCart;
