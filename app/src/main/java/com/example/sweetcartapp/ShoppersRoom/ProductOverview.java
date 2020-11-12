@@ -3,7 +3,6 @@ package com.example.sweetcartapp.ShoppersRoom;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,14 +23,14 @@ import com.example.sweetcartapp.ShoppersRoom.HelperMethods.Users;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductOverview extends AppCompatActivity {
+public class ProductOverview extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     TextView qtyamount, titleProduct;
     ImageView productPhoto;
-    Button addToCart, placeOrder;
-    private String TAG = getClass().getSimpleName();
+    Button addToCart;
     private GestureDetector gestureDetector;
-    private View rel;
+    private double SWIPE_THRESHOLD = 100;
+    private double SWIPE_VELOCITY_THRESHOLD = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +42,23 @@ public class ProductOverview extends AppCompatActivity {
         setSpinner();
 
         performButtonClickOperation();
+        this.gestureDetector = new GestureDetector(this, this);
+        setSwipeDownGesturetoFinishActivity();
+    }
+
+    private void setSwipeDownGesturetoFinishActivity() {
         productPhoto.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
-                    finish();
-                    Log.i(TAG, "onTouch: DOWN -----DOWN");
-                    return true;
-                }
+                gestureDetector.onTouchEvent(event);
                 return true;
-
             }
+
         });
-
-
     }
 
-
-
     private void performButtonClickOperation() {
-
         performAddtoCartOperation();
-
     }
 
     private void performAddtoCartOperation() {
@@ -92,7 +86,7 @@ public class ProductOverview extends AppCompatActivity {
         titleProduct = findViewById(R.id.tile_in_overview);
         productPhoto = findViewById(R.id.detailed_activity_image);
         addToCart = findViewById(R.id.addToCartButton);
-        rel = findViewById(R.id.myBaseOverview);
+
     }
 
     private void loadImagesandSetTitle(String productTitle, Integer imagetobeLoaded) {
@@ -153,4 +147,80 @@ public class ProductOverview extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+
+    @Override
+    public boolean onFling(MotionEvent downEvent, MotionEvent moveEvent, float velocityX, float velocityY) {
+        boolean result = false;
+        float diffY = moveEvent.getY() - downEvent.getY();
+        float diffX = moveEvent.getX() - downEvent.getX();
+        // which was greater?  movement across Y or X?
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            // right or left swipe
+            if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                if (diffX > 0) {
+                    onSwipeRight();
+                } else {
+                    onSwipeLeft();
+                }
+                result = true;
+            }
+        } else {
+            // up or down swipe
+            if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                if (diffY > 0) {
+                    onSwipeBottom();
+                } else {
+                    onSwipeTop();
+                }
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    private void onSwipeLeft() {
+    }
+
+    private void onSwipeBottom() {
+        finish();
+
+    }
+
+    private void onSwipeTop() {
+
+    }
+
+    private void onSwipeRight() {
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }
