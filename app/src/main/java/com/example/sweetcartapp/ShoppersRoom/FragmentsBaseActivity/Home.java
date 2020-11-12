@@ -56,16 +56,19 @@ public class Home extends Fragment {
         public void onReceive(Context context, Intent intent) {
             setupBadge();
             final AlertDialog dialog = alertDialog.create();
-            dialog.show();
-            //Dismiss dialog after 3 seconds
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    if (dialog.isShowing())
-                        dialog.dismiss();
-                }
-            };
-            h.postDelayed(runnable, 3000);
+            if (!BroadCasterInfo.CART_TYPE) {
+                BroadCasterInfo.CART_TYPE = false;
+                dialog.show();
+                //Dismiss dialog after 3 seconds
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (dialog.isShowing())
+                            dialog.dismiss();
+                    }
+                };
+                h.postDelayed(runnable, 3000);
+            }
         }
     };
     private AlertDialog.Builder alertDialog;
@@ -180,7 +183,8 @@ public class Home extends Fragment {
     public void setupBadge() {
         //TODO: Increase text on cart by 1 for each click on add item to cart
         Log.d("Home", "setupBadge: called with count: " + mCartItemCount);
-        if (mCartItemCount == 0) {
+        if (mCartItemCount <= 0) {
+            mCartItemCount = 0;
             if (textCartItemCount.getVisibility() != View.GONE) {
                 textCartItemCount.setVisibility(View.GONE);
             }

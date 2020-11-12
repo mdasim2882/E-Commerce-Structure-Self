@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,8 @@ import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Adapters.CartItem
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductGridItemDecoration;
 
 public class OrderedItemsActivity extends AppCompatActivity {
+
+    LocalBroadcastManager localBroadcastManager;
     Integer[] imageId = {
             R.drawable.rasgulla,
             R.drawable.gulabjamun,
@@ -31,6 +34,7 @@ public class OrderedItemsActivity extends AppCompatActivity {
         //TODO: Set Recycler View with items loaded from databse
         setRecyclerView();
         setUpToolbar();
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
     }
 
     private void setRecyclerView() {
@@ -63,4 +67,5 @@ public class OrderedItemsActivity extends AppCompatActivity {
             }
         });
     }
+
 }
