@@ -3,6 +3,7 @@ package com.example.sweetcartapp.ShoppersRoom;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.sweetcartapp.R;
 import com.example.sweetcartapp.ShoppersRoom.Commons.BroadCasterInfo;
+import com.example.sweetcartapp.ShoppersRoom.Commons.CartItemsAndImagesList;
 import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.Home;
 import com.example.sweetcartapp.ShoppersRoom.HelperMethods.Users;
 
@@ -28,6 +30,10 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
     private GestureDetector gestureDetector;
     private double SWIPE_THRESHOLD = 100;
     private double SWIPE_VELOCITY_THRESHOLD = 100;
+
+    String productTitle;
+    Integer imagetobeLoaded;
+
 
     TextView qtyamount, titleProduct;
     ImageView productPhoto;
@@ -69,8 +75,8 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int value = Home.mCartItemCount++;
-
+                int value = ++Home.mCartItemCount;
+                Log.d("BadgeCOUNT", "onClick: addValueInCart: " + value);
                 /*BroadCast Listener: Requirement FOR SENDER
                  * Create field in activity that wants to send BroadCast
                  *  LocalBroadcastManager localBroadcastManager;
@@ -110,6 +116,15 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
                  * *
                  * */
                 startMyItemAddedBroadCast();
+                CartItemsAndImagesList doneAdd = new CartItemsAndImagesList();
+                if (!CartItemsAndImagesList.titleID.contains(productTitle)) {
+
+                }
+                doneAdd.addtitleId(productTitle);
+                doneAdd.addImageId(imagetobeLoaded);
+                if (!CartItemsAndImagesList.imageId.contains(imagetobeLoaded)) {
+
+                }
                 finish();
             }
         });
@@ -117,8 +132,8 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
 
 
     private void setImageAndTitleUsingCallingActivity() {
-        String productTitle = getIntent().getStringExtra("Title");
-        Integer imagetobeLoaded = getIntent().getIntExtra("ImageID", Integer.MAX_VALUE);
+        productTitle = getIntent().getStringExtra("Title");
+        imagetobeLoaded = getIntent().getIntExtra("ImageID", Integer.MAX_VALUE);
         loadImagesandSetTitle(productTitle, imagetobeLoaded);
     }
 

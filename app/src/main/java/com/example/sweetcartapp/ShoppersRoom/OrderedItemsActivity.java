@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sweetcartapp.R;
+import com.example.sweetcartapp.ShoppersRoom.Commons.CartItemsAndImagesList;
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Adapters.CartItemsRecyclerViewAdapter;
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.ProductGridItemDecoration;
 
@@ -26,10 +27,18 @@ public class OrderedItemsActivity extends AppCompatActivity {
     };
     String titleID[] = {"Rasgulla", "Gulab Jamun", "Barfi", "Jalebi", "Samosa", "Lassi"};
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ordered_items);
+        CartItemsAndImagesList add = new CartItemsAndImagesList();
+//        for(String t:titleID) {
+//         add.addtitleId(t);
+//        }
+//        for(Integer a: imageId)
+//            add.addImageId(a);
+
 
         //TODO: Set Recycler View with items loaded from databse
         setRecyclerView();
@@ -49,7 +58,7 @@ public class OrderedItemsActivity extends AppCompatActivity {
          * ImageView productImage
          * TextView productName, productCost;
          * */
-        CartItemsRecyclerViewAdapter adapter = new CartItemsRecyclerViewAdapter(this, imageId, titleID);
+        CartItemsRecyclerViewAdapter adapter = new CartItemsRecyclerViewAdapter(this, CartItemsAndImagesList.imageId, CartItemsAndImagesList.titleID);
         recyclerView.setAdapter(adapter);
         int largePadding = getResources().getDimensionPixelSize(R.dimen.updown_product_grid_spacing);
         int smallPadding = getResources().getDimensionPixelSize(R.dimen.side_product_grid_spacing_small);
