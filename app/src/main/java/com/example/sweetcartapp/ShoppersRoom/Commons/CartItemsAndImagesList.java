@@ -1,11 +1,15 @@
 package com.example.sweetcartapp.ShoppersRoom.Commons;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+// Using LinkedList shows the beauty of Data Structures in
+// adding and removing items in list with worst Case Complexity O(1)
+// -most efficient for List Items.
+
 public class CartItemsAndImagesList {
-    public static List<Integer> imageId = new ArrayList<>();
-    public static List<String> titleID = new ArrayList<>();
+    public static List<Integer> imageId = new LinkedList<>();
+    public static List<String> titleID = new LinkedList<>();
 
     public CartItemsAndImagesList() {
     }

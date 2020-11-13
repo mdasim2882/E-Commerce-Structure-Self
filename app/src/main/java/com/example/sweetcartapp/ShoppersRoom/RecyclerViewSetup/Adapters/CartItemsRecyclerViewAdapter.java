@@ -20,7 +20,7 @@ import com.example.sweetcartapp.ShoppersRoom.HelperMethods.ProductEntry;
 import com.example.sweetcartapp.ShoppersRoom.ProductOverview;
 import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Holders.CartItemsViewHolder;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CartItemsRecyclerViewAdapter extends RecyclerView.Adapter<CartItemsViewHolder> {
@@ -29,8 +29,8 @@ public class CartItemsRecyclerViewAdapter extends RecyclerView.Adapter<CartItems
     public final String TAG = getClass().getSimpleName();
     Context context;
     private List<ProductEntry> productList;
-    private List<Integer> cardImages = new ArrayList<>();
-    List<String> cardTitle = new ArrayList<>();
+    private List<Integer> cardImages = new LinkedList<>();
+    List<String> cardTitle = new LinkedList<>();
     Activity activity;
 
     LocalBroadcastManager localBroadcastManager;
@@ -72,6 +72,11 @@ public class CartItemsRecyclerViewAdapter extends RecyclerView.Adapter<CartItems
                         CartItemsAndImagesList remover = new CartItemsAndImagesList();
                         remover.deletetitleId(cardTitle.get(position));
                         remover.deleteImageId(cardImages.get(position));
+
+                        //holder.cd.setVisibility(View.GONE);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, cardImages.size());
+
             /*BroadCast Listener: Requirement FOR SENDER
              * Create field in activity that wants to send BroadCast
              *  LocalBroadcastManager localBroadcastManager;
