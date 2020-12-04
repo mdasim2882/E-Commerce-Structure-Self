@@ -109,6 +109,7 @@
                 <TableRow>
 
                     <TextView
+                        android:id="@+id/productnameInOverviewTable"
                         android:fontFamily="@font/montserrat_alternates"
                         android:text=" Rasgulla"
                         android:padding="4dp"
@@ -122,6 +123,7 @@
                         android:padding="3dip" />
 
                     <TextView
+                        android:id="@+id/priceProductOverviewTable"
                         android:fontFamily="@font/montserrat_alternates"
                         android:text="Rs 40"
                         android:textAlignment="center"
@@ -144,6 +146,7 @@
                         android:padding="3dip" />
 
                     <TextView
+                        android:id="@+id/priceCGST"
                         android:fontFamily="@font/montserrat_alternates"
                         android:text="Rs 5.4"
                         android:textAlignment="center"
@@ -166,6 +169,7 @@
                         android:padding="3dip" />
 
                     <TextView
+                        android:id="@+id/priceGST"
                         android:fontFamily="@font/montserrat_alternates"
                         android:text="Rs 3.1"
                         android:textAlignment="center"
@@ -214,7 +218,7 @@
                     <TextView android:padding="5dp" />
 
                     <TextView
-                        android:text="Rs 58.5"
+                        android:id="@+id/totalOverall"
                         android:padding="5dp"
                         android:textStyle="bold"
                         android:textAlignment="center"

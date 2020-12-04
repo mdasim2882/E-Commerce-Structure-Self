@@ -10,6 +10,7 @@ import java.util.List;
 public class CartItemsAndImagesList {
     public static List<Integer> imageId = new LinkedList<>();
     public static List<String> titleID = new LinkedList<>();
+    public static List<Double> priceID = new LinkedList<>();
 
     public CartItemsAndImagesList() {
     }
@@ -18,12 +19,20 @@ public class CartItemsAndImagesList {
         return imageId;
     }
 
+    public static List<Double> getPriceId() {
+        return priceID;
+    }
+
     public static List<String> getTitleID() {
         return titleID;
     }
 
     public void addImageId(int imgno) {
         CartItemsAndImagesList.imageId.add(imgno);
+    }
+
+    public void addPriceId(double imgno) {
+        CartItemsAndImagesList.priceID.add(imgno);
     }
 
     public void addtitleId(String titleno) {
@@ -38,5 +47,8 @@ public class CartItemsAndImagesList {
         CartItemsAndImagesList.titleID.remove(new String(titleno));
     }
 
+    public void deletePriceId(double imgno) {
+        CartItemsAndImagesList.priceID.remove(new Double(imgno));
+    }
 
 }

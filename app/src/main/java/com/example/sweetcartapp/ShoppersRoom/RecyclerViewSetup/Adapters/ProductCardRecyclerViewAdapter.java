@@ -57,7 +57,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
                 //TODO: Perform card clicked working
                 Context c = v.getContext();
-                goToProductdetailsActivity(v, cardTitle[position], cardImages[position]);
+                goToProductdetailsActivity(v, cardTitle[position], cardImages[position], Integer.parseInt(cardSubtitle[position].substring(3)));
             }
         });
  /*       holder.addtoCart.setOnClickListener(new View.OnClickListener() {
@@ -69,10 +69,11 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     }
 
-    private void goToProductdetailsActivity(View v, String title, Integer imageID) {
+    private void goToProductdetailsActivity(View v, String title, Integer imageID, Integer priceIDs) {
         Intent i = new Intent(v.getContext(), ProductOverview.class);
         i.putExtra("Title", title);
         i.putExtra("ImageID", imageID);
+        i.putExtra("PriceBar", priceIDs);
         v.getContext().startActivity(i);
         // NOTE: Remember the important feature of Activity typecasting in constructor of Adapter
         // in order to use overridePendingTransition() method

@@ -1,9 +1,13 @@
 package com.example.sweetcartapp.ShoppersRoom;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,7 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.sweetcartapp.MainActivity;
 import com.example.sweetcartapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class Settings extends AppCompatActivity {
@@ -44,7 +50,9 @@ public class Settings extends AppCompatActivity {
     }
 
     @SuppressLint("ValidFragment")
-    private static class MyPrefenceFragment extends PreferenceFragment {
+    public class MyPrefenceFragment extends PreferenceFragment {
+        private String LOGOUT_FILE;
+        private String ISLOGIN = "islogin";
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,12 +63,27 @@ public class Settings extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     //TODO: Perform logout operations here
-                    Toast.makeText(getActivity(), "Logout Successfully", Toast.LENGTH_SHORT).show();
+                    performLogout();
                     return true;
                 }
             });
 
         }
+
+        private void performLogout() {
+            Log.d("LOGOUT BUTTON CLICKED", "onPreferenceClick: Before OUT:->" + FirebaseAuth.getInstance().getUid());
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(Settings.this, "Logged Out Successfully", Toast.LENGTH_SHORT).show();
+            LOGOUT_FILE = "loginStats";
+            SharedPreferences sharedPreferences = getSharedPreferences(LOGOUT_FILE, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(ISLOGIN, false);
+            editor.commit();
+            Settings.this.startActivity(new Intent(Settings.this, MainActivity.class));
+            finish();
+            Log.d("LOGOUT BUTTON CLICKED", "onPreferenceClick: After OUT:->" + FirebaseAuth.getInstance().getUid());
+        }
     }
+
 
 }

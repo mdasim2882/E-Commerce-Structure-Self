@@ -49,6 +49,7 @@ public class Home extends Fragment {
     private String mParam2;
     private TextView textCartItemCount;
     public static int mCartItemCount = 0;
+    //# HaMeR FRAMEWORK 
     Handler h = new Handler();
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

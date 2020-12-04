@@ -17,38 +17,38 @@ import com.example.sweetcartapp.ShoppersRoom.Commons.BroadCasterInfo;
 import com.example.sweetcartapp.ShoppersRoom.Commons.CartItemsAndImagesList;
 import com.example.sweetcartapp.ShoppersRoom.FragmentsBaseActivity.Home;
 import com.example.sweetcartapp.ShoppersRoom.HelperMethods.ProductEntry;
-import com.example.sweetcartapp.ShoppersRoom.ProductOverview;
-import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Holders.CartItemsViewHolder;
+import com.example.sweetcartapp.ShoppersRoom.RecyclerViewSetup.Holders.CartItemsNewHolder;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class CartItemsRecyclerViewAdapter extends RecyclerView.Adapter<CartItemsViewHolder> {
+public class CartItemsRecyclerViewAdapter extends RecyclerView.Adapter<CartItemsNewHolder> {
 
 
     public final String TAG = getClass().getSimpleName();
     Context context;
     private List<ProductEntry> productList;
     private List<Integer> cardImages = new LinkedList<>();
+    private List<Double> cardPrices = new LinkedList<>();
     List<String> cardTitle = new LinkedList<>();
     Activity activity;
 
     LocalBroadcastManager localBroadcastManager;
 
-    public CartItemsRecyclerViewAdapter(Context context, List<Integer> imageList, List<String> cardTitle) {
+    public CartItemsRecyclerViewAdapter(Context context, List<Integer> imageList, List<Double> cardPrices, List<String> cardTitle) {
         this.cardImages = imageList;
         this.cardTitle = cardTitle;
-
+        this.cardPrices = cardPrices;
         this.context = context;
         activity = (Activity) context;
         localBroadcastManager = LocalBroadcastManager.getInstance(activity);
     }
 
     @Override
-    public CartItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item_cards, parent, false);
+    public CartItemsNewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_full_cards, parent, false);
 
-        return new CartItemsViewHolder(layoutView);
+        return new CartItemsNewHolder(layoutView);
     }
 
     private void startMyItemAddedBroadCast() {
@@ -56,10 +56,17 @@ public class CartItemsRecyclerViewAdapter extends RecyclerView.Adapter<CartItems
         localBroadcastManager.sendBroadcast(intent);
     }
 
+    private void startMyButtonReplacementBroadCast() {
+        Intent intent = new Intent(BroadCasterInfo.PLACE_ORDER_BUTTON);
+        localBroadcastManager.sendBroadcast(intent);
+    }
+
     @Override
-    public void onBindViewHolder(@NonNull CartItemsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CartItemsNewHolder holder, int position) {
         holder.igcard.setImageResource(cardImages.get(position));
         holder.igTitle.setText(cardTitle.get(position));
+        holder.igprice.setText("Rs " + cardPrices.get(position));
+        holder.totalAmountForSameN_items.setText("Rs " + cardPrices.get(position));
         holder.deleteCartItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +79,7 @@ public class CartItemsRecyclerViewAdapter extends RecyclerView.Adapter<CartItems
                         CartItemsAndImagesList remover = new CartItemsAndImagesList();
                         remover.deletetitleId(cardTitle.get(position));
                         remover.deleteImageId(cardImages.get(position));
-
+                        remover.deletePriceId(cardPrices.get(position));
                         //holder.cd.setVisibility(View.GONE);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, cardImages.size());
@@ -115,24 +122,16 @@ public class CartItemsRecyclerViewAdapter extends RecyclerView.Adapter<CartItems
              *
              * *
              * */
+                        startMyButtonReplacementBroadCast();
                         startMyItemAddedBroadCast();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+//                if(Home.mCartItemCount==0)
+//                    startMyButtonReplacementBroadCast();
             }
         });
-    }
-
-
-    private void goToProductdetailsActivity(View v, String title, Integer imageID) {
-        Intent i = new Intent(v.getContext(), ProductOverview.class);
-        i.putExtra("Title", title);
-        i.putExtra("ImageID", imageID);
-        v.getContext().startActivity(i);
-        // NOTE: Remember the important feature of Activity typecasting in constructor of Adapter
-        // in order to use overridePendingTransition() method
-        activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
 
 

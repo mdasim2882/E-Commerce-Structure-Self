@@ -32,8 +32,11 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
     private double SWIPE_VELOCITY_THRESHOLD = 100;
 
     String productTitle;
-    Integer imagetobeLoaded;
+    Integer imagetobeLoaded, pricetobeLoaded;
+    double changedSum, mainVal;
 
+    //Price and name in its table
+    TextView priceInTable, productNameInTable, tableGST, tableCGST, tableTotal;
 
     TextView qtyamount, titleProduct;
     ImageView productPhoto;
@@ -76,6 +79,8 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
             @Override
             public void onClick(View v) {
                 int value = ++Home.mCartItemCount;
+
+
                 Log.d("BadgeCOUNT", "onClick: addValueInCart: " + value);
                 /*BroadCast Listener: Requirement FOR SENDER
                  * Create field in activity that wants to send BroadCast
@@ -115,26 +120,45 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
                  *
                  * *
                  * */
+
                 startMyItemAddedBroadCast();
+                startMyButtonReplacementBroadCast();
                 CartItemsAndImagesList doneAdd = new CartItemsAndImagesList();
                 if (!CartItemsAndImagesList.titleID.contains(productTitle)) {
 
                 }
                 doneAdd.addtitleId(productTitle);
                 doneAdd.addImageId(imagetobeLoaded);
+                doneAdd.addPriceId(mainVal);
                 if (!CartItemsAndImagesList.imageId.contains(imagetobeLoaded)) {
 
                 }
+/*
+                if (!CartItemsAndImagesList.titleID.contains(productTitle)) {
+                    doneAdd.addtitleId(productTitle);
+                    doneAdd.addImageId(imagetobeLoaded);
+                    doneAdd.addPriceId(pricetobeLoaded);
+                }
+               else {
+                    BroadCasterInfo.QUANT=BroadCasterInfo.QUANT+1;
+                }
+*/
+
                 finish();
             }
         });
     }
 
+    private void startMyButtonReplacementBroadCast() {
+        Intent intent = new Intent(BroadCasterInfo.PLACE_ORDER_BUTTON);
+        localBroadcastManager.sendBroadcast(intent);
+    }
 
     private void setImageAndTitleUsingCallingActivity() {
         productTitle = getIntent().getStringExtra("Title");
+        pricetobeLoaded = getIntent().getIntExtra("PriceBar", Integer.MAX_VALUE);
         imagetobeLoaded = getIntent().getIntExtra("ImageID", Integer.MAX_VALUE);
-        loadImagesandSetTitle(productTitle, imagetobeLoaded);
+        loadImagesandSetTitle(productTitle, imagetobeLoaded, pricetobeLoaded);
     }
 
     private void initializeViews() {
@@ -143,12 +167,52 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
         productPhoto = findViewById(R.id.detailed_activity_image);
         addToCart = findViewById(R.id.addToCartButton);
 
+        productNameInTable = findViewById(R.id.productnameInOverviewTable);
+        priceInTable = findViewById(R.id.priceProductOverviewTable);
+
+        tableCGST = findViewById(R.id.priceCGST);
+        tableGST = findViewById(R.id.priceGST);
+        tableTotal = findViewById(R.id.totalOverall);
+
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
     }
 
-    private void loadImagesandSetTitle(String productTitle, Integer imagetobeLoaded) {
+    private void loadImagesandSetTitle(String productTitle, Integer imagetobeLoaded, Integer pricetobeLoaded) {
         titleProduct.setText(productTitle);
         productPhoto.setImageResource(imagetobeLoaded);
+        productNameInTable.setText(productTitle);
+
+
+        priceInTable.setText("Rs " + pricetobeLoaded);
+
+
+        Double a = Double.valueOf(pricetobeLoaded);
+        calculateTaxandSetCost(a);
+
+    }
+
+    private void calculateTaxandSetCost(Double pricetobeLoaded) {
+        changedSum = Double.valueOf(pricetobeLoaded);
+        double GST = setGst(pricetobeLoaded);
+        double CGST = setCGST(pricetobeLoaded);
+        updateTaxInTables(GST, CGST);
+    }
+
+    private void updateTaxInTables(double gst, double cgst) {
+        tableGST.setText("Rs " + gst);
+        tableCGST.setText("Rs " + cgst);
+        double totalPrice = gst + cgst + changedSum + 10;
+        mainVal = (double) Math.round(totalPrice * 100) / 100;
+        tableTotal.setText("Rs " + mainVal);
+    }
+
+    private double setCGST(Double pricetobeLoaded) {
+        return (double) Math.round((0.18) * pricetobeLoaded * 100) / 100;
+
+    }
+
+    private double setGst(Double pricetobeLoaded) {
+        return (double) Math.round((0.05) * pricetobeLoaded * 100) / 100;
     }
 
     private void setSpinner() {
@@ -159,7 +223,6 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
         Users ob5 = new Users(5, "500 g");
         Users ob6 = new Users(6, "1 kg");
         Users ob7 = new Users(7, "2 kg");
-        Users ob8 = new Users(8, "5 kg");
 
         List<Users> users = new ArrayList<>();
         users.add(ob1);
@@ -169,7 +232,6 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
         users.add(ob5);
         users.add(ob6);
         users.add(ob7);
-        users.add(ob8);
 
         SetupSpinner(users);
 
@@ -196,6 +258,24 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
                     qtyamount.setText(s);
                     //TODO : Run tax calculation class here to maintain invoice for
                     // each value selected by the user
+                    String val = s.substring(0, s.indexOf(' '));
+
+
+                    Integer actualquantity = Integer.valueOf(val);
+                    double oneGram = pricetobeLoaded * 0.01;
+                    double priceForTax;
+                    if (val.length() == 3) {
+                        priceInTable.setText("Rs " + (oneGram * actualquantity));
+                        Log.d("UpdatedPRice", "onItemSelected: " + "Rs " + (oneGram * actualquantity));
+                        priceForTax = (oneGram * actualquantity);
+                    } else {
+                        priceInTable.setText("Rs " + (oneGram * (actualquantity * 1000)));
+                        Log.d("UpdatedPRice for KG", "onItemSelected: " + "Rs " + (oneGram * actualquantity));
+
+                        priceForTax = (oneGram * (actualquantity * 1000));
+                    }
+                    changedSum = priceForTax;
+                    calculateTaxandSetCost(priceForTax);
                 }
 
 
@@ -233,7 +313,6 @@ public class ProductOverview extends AppCompatActivity implements GestureDetecto
     public void onLongPress(MotionEvent e) {
 
     }
-
 
     @Override
     public boolean onFling(MotionEvent downEvent, MotionEvent moveEvent, float velocityX, float velocityY) {

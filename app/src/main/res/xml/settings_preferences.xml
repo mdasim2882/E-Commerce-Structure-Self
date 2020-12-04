@@ -79,6 +79,4 @@
             android:summary="v1.0.0"
             android:key="about_version_info" />
     </PreferenceCategory>
-
-
 </PreferenceScreen>

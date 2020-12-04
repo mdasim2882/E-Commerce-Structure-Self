@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/placeOrderButton"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -28,11 +29,89 @@
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_cartitems"
+        <RelativeLayout
+            android:id="@+id/noitemlayout"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layoutAnimation="@anim/layout_animation"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/no_order"
+                android:layout_above="@id/txtnoorder" />
+
+            <TextView
+                android:id="@+id/txtnoorder"
+                android:text="No items in Cart"
+                android:textSize="18dp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardLocation"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:textSize="18dp"
+                        android:text="Deliver To Lucknow"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/buttonChangeAdd"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:text="Change"
+                        android:textColor="@color/black"
+                        app:strokeColor="#4527A0"
+                        app:strokeWidth="1dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_cartitems"
+                android:layout_width="match_parent"
+                android:layoutAnimation="@anim/layout_animation"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_margin="4dp"
+        android:visibility="gone"
+        android:id="@+id/placeOrderButton"
+        android:layout_width="match_parent"
+        android:text="Place Order"
+        app:cornerRadius="4dp"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/teal_700"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
